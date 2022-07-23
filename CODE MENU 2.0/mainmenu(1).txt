@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <locale.h>
+#include "file.h"
+
+int main()
+{
+    setlocale(LC_ALL, "Portuguese");
+
+    int option;
+
+    do{
+        molduraMenuPrincipal();
+            scanf("%d",&option);
+            getchar();
+
+        switch(option){
+        case 1:
+            jogarMenu();
+            break;
+        case 2:
+            rankingMenu();
+            break;
+        case 3:
+            creditosMenu();
+            break;
+        case 4:
+            sairMenu();
+            break;
+        default:
+            erroMenu();
+            break;
+        }
+    }while(option != 4 );
+
+    return 0;
+}

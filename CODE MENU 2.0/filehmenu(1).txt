@@ -1,0 +1,20 @@
+#ifndef FILE_H_INCLUDED
+#define FILE_H_INCLUDED
+
+typedef struct{
+    char jogador[24];
+    int pontos;
+} ranking;
+
+extern ranking player[];
+
+void molduraMenuPrincipal();
+void jogadorMenu();
+void jogarMenu();
+void rankingMenu();
+void creditosMenu();
+void erroMenu();
+void sairMenu();
+void limparTela();
+
+#endif // FILE_H_INCLUDED

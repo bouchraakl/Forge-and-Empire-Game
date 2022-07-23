@@ -1,0 +1,130 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "file.h"
+
+ranking player[10];
+
+int option, a = 0;
+
+void molduraMenuPrincipal(){
+    limparTela();
+
+    printf("=======BEM-VINDO========\n");
+    printf("========= AO ===========\n") ;
+    printf("=====FORGE & EMPIRE ==== \n");
+    printf("\n1 - Iniciar ");
+    printf("\n2 - Ranking");
+    printf("\n3 - Créditos");
+    printf("\n4 - Sair\n");
+    printf("\nOpção selecionada: ");
+}
+
+void jogadorMenu(){
+    char aux[24];
+    int i, score, encon = -1;
+
+    system("cls");
+
+    printf("\t\tEm construção\n\n");
+
+    printf("Digite seu nome: ");
+    fflush(stdin);
+    fgets(aux, 24, stdin);
+
+    printf("\nDigite sua pontuação: ");
+    scanf("%d", &score);
+    getchar();
+
+    for(i = 0 ; i < a ; i++){
+        if(strcmp(player[i].jogador, aux)==0){
+            printf("\nEsse nome já existe, sua pontuação foi atualizada!");
+            encon = i ;
+            player[i].pontos = score;
+            getchar();
+            break ;
+        }
+    }
+    if (encon == -1){
+        encon = a;
+        strcpy(player[encon].jogador, aux);
+        a++;
+    }
+    player[encon].pontos = score;
+}
+
+void jogarMenu(){
+    int opc2;
+
+    do
+    {
+        jogadorMenu();
+
+        system("cls");
+
+        printf("1 - Adicionar outro jogador\n");
+        printf("2 - Voltar\n");
+        printf("\nSelecione sua opção: ");
+            scanf("%d", &opc2);
+            getchar();
+
+        switch(opc2){
+        case 1:
+            break;
+        case 2:
+            break;
+        default:
+            printf("Opção inválida");
+            break;
+        }
+    }while(opc2 != 2);
+}
+
+void rankingMenu(){
+    ranking copia;
+
+        for(int i = 0; i < a-1; i++){
+            for(int j=0; j < a-1; j++){
+                if(player[j].pontos<player[j+1].pontos){
+                copia = player[j];
+                player[j]=player[j+1];
+                player[j+1]=copia;
+                }
+            }
+        }
+
+    limparTela();
+
+    printf("\n\t\t\tPONTUAÇÃO\n");
+    printf("\t\n");
+    printf("\tPOSIÇÃO\t||\tPONTOS\t||\tNOME\n");
+
+    for(int i=0; i<a; i++){
+        printf("\t%d\t||\t%d\t||\t%s", i+1, player[i].pontos, player[i].jogador);
+    }
+    getchar();
+}
+
+void creditosMenu(){
+    limparTela();
+
+    printf("\t\t\t\t\t\t****CRÉDITOS****\n");
+    printf("\t\t\t\t\t\t***EQUIPE 7-8 **\n\n");
+    printf("\t***Bouchra***\t\t***Emilio***\t\t\t***Gustavo***\t\t\t***Homam***\n");
+    getchar();
+}
+
+void erroMenu(){
+    limparTela();
+
+    printf("OPÇÃO INVÁLIDA, TENTE NOVAMENTE\n");
+    getchar();
+}
+
+void sairMenu(){
+    return 0 ;
+}
+
+void limparTela(){
+    system("cls");
+}

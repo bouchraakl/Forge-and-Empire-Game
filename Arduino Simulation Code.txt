@@ -1,0 +1,247 @@
+//-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//
+//-/-/-/-/-/-/-/Bibliotecas e DEFINE/-/-/-/-/-/-/-/-//
+
+#include "U8glib.h"
+#define Bverde 4 //pin
+#define Bazul 5 //pin
+#define Bvermelho 6 //pin
+#define Bamarelo 7 //pin
+#define pic_w 30
+#define pic_h 30
+
+const uint8_t picareta[] = {
+ 0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x80,0x03,
+ 0x00,0x00,0x40,0x02,0x00,0x00,0xf8,0x07,0x00,0x00,0xfe,0x3f,0x00,0xc0,0xff,
+ 0x7f,0x00,0xf0,0xff,0xff,0x00,0xf8,0xff,0xff,0x00,0xfc,0xc8,0xf8,0x01,0x1c,
+ 0x48,0xe0,0x01,0x0e,0x64,0xc0,0x01,0x02,0x24,0xc0,0x01,0x00,0x36,0x80,0x01,
+ 0x00,0x12,0x00,0x01,0x00,0x1a,0x00,0x00,0x00,0x0b,0x00,0x00,0x00,0x09,0x00,
+ 0x00,0x00,0x0d,0x00,0x00,0x00,0x05,0x00,0x00,0x80,0x04,0x00,0x00,0x80,0x04,
+ 0x00,0x00,0x80,0x06,0x00,0x00,0x40,0x02,0x00,0x00,0x40,0x02,0x00,0x00,0xc0,
+ 0x03,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00};
+//-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//
+//-/-/-/-/-/-/-/-/Variaveis e Funcoes/-/-/-/-/-/-/-/-//
+
+int y = 0, w, linha=100; //Y pra movimentacao
+uint8_t alteraMenu = 25;
+U8GLIB_SSD1306_128X64 u8g(U8G_I2C_OPT_NO_ACK);
+
+//funcoes
+void drawCabecalho();
+void startBotton();
+void startOled();
+void drawMENU();
+void telaInicial();
+
+//-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//
+//-/-/-/-/-/-/-/-/-/-/-/-/SETUP/-/-/-/-/-/-/-/-/-/-/-//
+
+void setup() {
+
+  Serial.begin(9600);
+  startBotton();
+  startOled();
+}
+
+//-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//
+//-/-/-/-/-/-/-/-/-/-/-/-/LOOP//-/-/-/-/-/-/-/-/-/-/-//
+void loop() {
+  
+  int cima = digitalRead(Bverde); //atribue nome aos botoes
+  int baixo = digitalRead(Bamarelo); //atribue nome aos botoes
+  int direita = digitalRead(Bazul); //atribue nome aos botoes
+  int esquerda = digitalRead(Bvermelho); //atribue nome aos botoes
+  alterMen(25, 55); //funcao com o começo e final das opcoes em Y
+
+  //-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//
+  //-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//
+
+  u8g.firstPage();
+  do {
+    drawMENU(); // chama a primeira funcao com o cabecalho, NJogo, ...
+  } while (u8g.nextPage());
+
+  //-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-/-//
+  //-/-/-/-/-/-/-/BOTOES ESQUERDA E DIREITA/-/-/-/-/-/-//
+  //-/-/-/-/-/-/-/-/-/-/NAVEGACAO 'X'/-/-/-/-/-/-/-/-/-//
+
+  if (direita == LOW) {
+    switch (alteraMenu) {
+      case 25: //valor de Y esta no NovoJogo
+        u8g.firstPage();
+        do{
+            u8g.firstPage();
+        do {
+          alterMen(25, 45);
+          drawMENU2();
+
+        } while (u8g.nextPage());
+        }while (digitalRead(Bvermelho) == HIGH);
+        break;
+
+      case 35: //valor de Y esta no Ranking
+        u8g.firstPage();
+        do {
+          drawCabecalho();
+          u8g.setFont(u8g_font_6x10);
+          u8g.drawStr(42, 20, "RANKING");
+          u8g.setFont(u8g_font_4x6);
+          u8g.drawStr(42, 30, "Nome|Ponto");
+          u8g.drawStr(42, 40, " emilio | 100   ");
+          u8g.drawStr(42, 50, " gustavo| 120    ");
+          u8g.drawStr(42, 60, " bruna  | 90   ");
+        } while (u8g.nextPage());
+        while (digitalRead(Bvermelho) == HIGH) {}
+        break;
+
+      case 45: //valor de Y esta no Creditos
+        u8g.firstPage();
+        do {
+          drawCreditos();
+        } while (u8g.nextPage());
+        while (digitalRead(Bvermelho) == HIGH) {}
+        break;
+
+      case 55: //valor de Y esta no Jogador
+        u8g.firstPage();
+        do {
+          drawCabecalho();
+          u8g.setFont(u8g_font_6x10);
+          u8g.drawStr(42, 20, "Jogador");
+          u8g.drawStr(10, 30, "Digite seu nome");
+          u8g.drawStr(05, 40, ":| 3 letras apenas|:");
+        } while (u8g.nextPage());
+        while (digitalRead(Bvermelho) == HIGH) {}
+        break;
+    }
+  }
+}
+////////////////////////////////////////////////////////////////////////////
+void startBotton () {
+  pinMode(Bverde, INPUT_PULLUP);
+  pinMode(Bazul, INPUT_PULLUP);
+  pinMode(Bvermelho, INPUT_PULLUP);
+  pinMode(Bamarelo, INPUT_PULLUP);
+}
+
+void startOled() {
+  if ( u8g.getMode() == U8G_MODE_R3G3B2 ) {
+    u8g.setColorIndex(255);
+  }
+  else if (u8g.getMode() == U8G_MODE_GRAY2BIT) {
+    u8g.setColorIndex(3);// brilho no maximo
+  }
+  else if (u8g.getMode() == U8G_MODE_BW) {
+    u8g.setColorIndex(1);// pixel ligado ou seja branco<3
+  }
+  else if  (u8g.getMode() == U8G_MODE_HICOLOR) {
+    u8g.setHiColorByRGB(255, 255, 255);
+  }
+}
+
+void drawMENU() {
+  u8g.drawFrame(1, 10, 125, 50); // contorno menu
+
+  //cabecalho
+  u8g.setFont(u8g_font_4x6);
+  u8g.drawStr(106, 8, "G 7&8");
+  u8g.drawStr(2, 8, "V-0.5");
+
+  u8g.setFont(u8g_font_6x10);
+  u8g.drawStr(70, 30, "FORGE");
+  u8g.drawStr(82, 40, "&");
+  u8g.drawStr(68, 50, "EMPIRE");
+
+
+  u8g.setFont(u8g_font_4x6);
+  u8g.drawStr(10, alteraMenu, "->");
+  u8g.drawStr(20, 25, "JOGAR");
+  u8g.drawStr(20, 35, "RANKING");
+  u8g.drawStr(20, 45, "CREDITOS");
+  u8g.drawStr(20, 55, "JOGADOR");
+}
+
+void drawMENU2() {
+  u8g.drawFrame(1, 10, 125, 50); // contorno menu
+
+  //cabecalho
+  u8g.setFont(u8g_font_4x6);
+  u8g.drawStr(106, 8, "G 7&8");
+  u8g.drawStr(2, 8, "V-0.5");
+
+  u8g.setFont(u8g_font_4x6);
+  u8g.drawStr(9, alteraMenu, "->");
+  delay(10);
+  u8g.setFont(u8g_font_6x10);
+  u8g.drawStr(20, 25, "  Emilio");
+  u8g.drawStr(20, 35, "  Boushra");
+  u8g.drawStr(20, 45, "Espaco Vazio");
+
+  if(digitalRead(Bazul) == 0)
+  {
+    selecionaJogad();
+  } 
+}
+
+void selecionaJogad()
+{
+  switch(alteraMenu)
+  {
+    case 25:
+      do{u8g.firstPage();
+        do{
+            u8g.setFont(u8g_font_4x6);
+            u8g.drawStr(20, 10, "Personagem selecionado");
+            u8g.drawXBM(50, 20, pic_w, pic_h, picareta);
+        }while (u8g.nextPage());
+      }while (digitalRead(Bvermelho) == HIGH);    
+  
+    case 35:
+      do{
+        do{
+            u8g.setFont(u8g_font_4x6);
+            u8g.drawStr(20, 10, "Personagem selecionado");
+            u8g.drawXBM(50, 20, pic_w, pic_h, picareta);
+
+        }while (u8g.nextPage());
+      }while (digitalRead(Bvermelho) == HIGH);  
+
+  }
+}
+
+void drawCreditos()
+{ do{u8g.firstPage();
+    do{
+      drawCabecalho();
+      u8g.setFont(u8g_font_6x10);
+      u8g.drawStr(20,linha, "CREDITOS");
+      u8g.drawStr(20,linha+10, "Emilio");
+      u8g.drawStr(20,linha+22, "Bruna");
+      u8g.drawStr(20,linha+32, "Gustavo");
+      u8g.drawStr(20,linha+42, "Boushra");
+      u8g.drawStr(20,linha+52, "Homam");
+
+      linha -=1;
+      delay(100);
+    }while (u8g.nextPage());
+  }while (digitalRead(Bvermelho) == HIGH);
+}
+
+
+  uint8_t alterMen(uint8_t minimo, uint8_t maximo)
+  {
+   if(digitalRead(4) == 0 && alteraMenu > minimo)      
+         alteraMenu -= 10;         
+    if(digitalRead(7) == 0 && alteraMenu < maximo)     
+           alteraMenu += 10;            
+  }
+
+void drawCabecalho() {
+  u8g.drawFrame(1, 10, 125, 50); //contorno
+
+  //cabecalho
+  u8g.setFont(u8g_font_4x6);
+  u8g.drawStr(106, 8, "G 7&8");
+  u8g.drawStr(2, 8, "V-0.5");
+}
+
+

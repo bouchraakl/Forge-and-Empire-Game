@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1654032362 source:c:\users\bushr\onedrive\documentos\-projeto criando seu atari-\provas + entregas\menufinal2\main.c
+	"file.h"
+
+1654032496 c:\users\bushr\onedrive\documentos\-projeto criando seu atari-\provas + entregas\menufinal2\file.h
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<Windows.h>
+
+1654032596 source:c:\users\bushr\onedrive\documentos\-projeto criando seu atari-\provas + entregas\menufinal2\file.c
+	"file.h"
+

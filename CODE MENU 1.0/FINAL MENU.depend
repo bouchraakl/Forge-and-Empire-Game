@@ -1,0 +1,36 @@
+# depslib dependency file v1.0
+1648247991 source:c:\users\bushr\documents\final menu\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1649377061 source:c:\users\bushr\documents\projeto de game design document\provas + entregas\codeblock-menu\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	"file.h"
+
+1649374744 c:\users\bushr\documents\projeto de game design document\provas + entregas\codeblock-menu\minhabiblo.h
+
+1649375274 c:\users\bushr\documents\projeto de game design document\provas + entregas\codeblock-menu\file.h
+
+1649377061 source:c:\users\bushr\documents\projeto de game design document\provas + entregas\codeblock-menu\file.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	"file.h"
+
+1651009319 source:c:\users\bushr\onedrive\documentos\projeto de game design document\provas + entregas\codeblock-menu\file.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	"file.h"
+
+1650994540 c:\users\bushr\onedrive\documentos\projeto de game design document\provas + entregas\codeblock-menu\file.h
+
+1651009349 source:c:\users\bushr\onedrive\documentos\projeto de game design document\provas + entregas\codeblock-menu\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+	<string.h>
+	"file.h"
+
