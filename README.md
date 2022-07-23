@@ -4,7 +4,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-    <img src="images/Logo.jpeg" alt="Logo" width="80" height="80">
+    <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8Z2FtZXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=600&q=60" alt="Logo" width="500" height="300">
 
   <h3 align="center">Forge & Empire</h3>
 
@@ -68,10 +68,10 @@ Here are some prerequisites we used for our project.
 
 ### Prerequisites - Hardware-
 <li>Arduino Uno</li>
-<li>Oled</li>
-<li>Cabels</li>
-<li>Connecting Board</li>
-<li>buttons</li>
+<li>OLED Display</li>
+<li>Jumper wires (generic)</li>
+<li>Breadboard (generic)</li>
+<li>Buttons</li>
 
 ### Prerequisites -Software-
 
