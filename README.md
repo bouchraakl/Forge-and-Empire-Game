@@ -141,7 +141,3 @@ My LinkedIn Account - (https://www.linkedin.com/in/bouchra-akl/)
 
 
 <p align="right">(<a href="#top">back to top</a>)</p>
-
-
-
-<p align="right">(<a href="#top">back to top</a>)</p>
