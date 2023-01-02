@@ -144,10 +144,4 @@ My LinkedIn Account - (https://www.linkedin.com/in/bouchra-akl/)
 
 
 
-<!-- ACKNOWLEDGMENTS -->
-## Acknowledgments
-
-
-* Mentors : TEACHER JORGE AND TEACHER MARCUS
-
 <p align="right">(<a href="#top">back to top</a>)</p>
